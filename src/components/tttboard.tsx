@@ -6,7 +6,6 @@ import {useState, useEffect} from 'react'
 export default function Tttboard({winner, setWinner, board, gameWinner}: {winner: number,
   setWinner: (board: number, winner: number) => void, board: number, gameWinner: number}) {
   const [grid, setGrid] = useState<number[]>([0,0,0,0,0,0,0,0,0])
-  // const [winner, setWinner] = useState<number>(0)
   const updateGrid = (box: number, val: 1|2) => {
     const newgrid = [...grid]
     newgrid[box] = val
@@ -45,7 +44,7 @@ export default function Tttboard({winner, setWinner, board, gameWinner}: {winner
       {grid.map(
         (val, index) => {
           return(
-            <Tttbox boxok={winner == 0 && gameWinner == 0} val={val} updateGrid={updateGrid} box={index} key={index} />
+            <Tttbox boxok={winner == 0 && gameWinner == 0} val={val} updateGrid={updateGrid} box={index} board={board} key={index} />
           )
         }
       )}

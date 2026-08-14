@@ -8,6 +8,7 @@ export default function Gameboard() {
   const [turn, setTurn] = useState<1|2>(1)
   const [grid, setGrid] = useState<number[]>([0,0,0,0,0,0,0,0,0])
   const [gameWinner, setGameWinner] = useState<number>(0)
+  const [currboard, setCurrboard] = useState<number|undefined>(undefined)
   const updateGrid = (board: number, winner: number) => {
     const newgrid = [...grid]
     newgrid[board] = winner
@@ -58,7 +59,7 @@ export default function Gameboard() {
           </Typography>
         </Box>
       </Box>
-      <TurnContext.Provider value={{turn, setTurn}}>
+      <TurnContext.Provider value={{turn, setTurn, currboard, setCurrboard, grid, setGrid}}>
         <Box sx={{mt: '30px', display: 'grid', gridTemplateColumns: 'repeat(3, 158px)',
           border: `3px solid ${gameWinner == 1 ? '#2246f9' : gameWinner == 2 ? '#ff0011' : '#646466'}`}}>
           {grid.map(
