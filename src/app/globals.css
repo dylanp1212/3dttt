@@ -1,4 +1,8 @@
-:root {
+body {
+  background: #15151b;
+}
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -46,4 +50,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
