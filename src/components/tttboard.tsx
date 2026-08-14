@@ -1,28 +1,53 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Tttbox from './tttbox'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 export default function Tttboard() {
   const [grid, setGrid] = useState<number[]>([0,0,0,0,0,0,0,0,0])
-  // const [val, setVal] = useState<0|1|2>(0)
+  const [winner, setWinner] = useState<number>(0)
   const updateGrid = (box: number, val: 1|2) => {
     const newgrid = [...grid]
     newgrid[box] = val
-    // console.log(newgrid)
     setGrid(newgrid)
   }
+  useEffect(() => {
+    let full = true
+    for (let i = 0; i < 9; i++) {
+      if (grid[i] == 0) {
+        full = false
+      }
+    }
+    if (grid[0] == grid[1] && grid[1] == grid[2] && grid[0] != 0) {
+      setWinner(grid[0])
+    } else if (grid[3] == grid[4] && grid[4] == grid[5] && grid[3] != 0) {
+      setWinner(grid[3])
+    } else if (grid[6] == grid[7] && grid[7] == grid[8] && grid[6] != 0) {
+      setWinner(grid[6])
+    } else if (grid[0] == grid[3] && grid[3] == grid[6] && grid[0] != 0) {
+      setWinner(grid[0])
+    } else if (grid[1] == grid[4] && grid[4] == grid[7] && grid[1] != 0) {
+      setWinner(grid[1])
+    } else if (grid[2] == grid[5] && grid[5] == grid[8] && grid[2] != 0) {
+      setWinner(grid[2])
+    } else if (grid[0] == grid[4] && grid[4] == grid[8] && grid[0] != 0) {
+      setWinner(grid[0])
+    } else if (grid[2] == grid[4] && grid[4] == grid[6] && grid[2] != 0) {
+      setWinner(grid[2])
+    } else if (full) {
+      setWinner(3)
+    }
+  }, [grid])
   return (
-    <Box sx={{mt: '30px', display: 'grid', border: '3px solid #646466',
+    <Box sx={{mt: '30px', display: 'grid', border: `3px solid ${winner == 1 ? '#2246f9' : winner == 2 ? '#ff0011' : '#646466'}`,
       gridTemplateColumns: 'repeat(3, 50px)'}}>
       {grid.map(
         (val, index) => {
           return(
-            <Tttbox boxok={true} val={val} updateGrid={updateGrid} box={index} key={index} />
+            <Tttbox boxok={winner == 0} val={val} updateGrid={updateGrid} box={index} key={index} />
           )
         }
       )}
-      {/* <Tttbox turn={turn} boxok={true} val={grid[0]} updateGrid={updateGrid} box={0} /> */}
     </Box>
   )
 }
