@@ -3,7 +3,7 @@ import {useTurn} from './turnContext'
 
 export default function Tttbox({boxok, val, updateGrid, box, board}: {boxok: boolean,
   val: number, updateGrid: (box: number, val: 1|2) => void, box: number, board: number}) {
-  const {turn, setTurn, currboard, setCurrboard, grid} = useTurn()
+  const {turn, setTurn, currboard} = useTurn()
   const onClick = () => {
     if (boxok && val == 0 && (board == currboard || currboard == undefined)) {
       updateGrid(box, turn)
@@ -11,11 +11,6 @@ export default function Tttbox({boxok, val, updateGrid, box, board}: {boxok: boo
         setTurn(2)
       } else {
         setTurn(1)
-      }
-      if (grid[box] != 0) {
-        setCurrboard(undefined)
-      } else {
-        setCurrboard(box)
       }
     }
   }
