@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Tttboard from './tttboard'
+import Bot from './bot'
 import {TurnContext} from './turnContext'
 import {useState} from 'react'
 
@@ -84,6 +85,7 @@ export default function Gameboard({mode}: {mode: 1|2}) {
             }
           )}
         </Box>
+        {mode == 1 ? <Bot /> : null}
       </TurnContext.Provider>
     </Box>
   )
