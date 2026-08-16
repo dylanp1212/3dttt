@@ -63,7 +63,7 @@ export default function Tttboard({winner, setWinner, board, gameWinner}: {winner
               borderRadius: '50%', border: '12px solid #ff0011'}} />
           )}
         </Box>
-      ) : (currboard != board && currboard != undefined) ?
+      ) : ((currboard != board && currboard != undefined) || winner == 3) ?
         <Box sx={{position: 'absolute', inset: 0, display: 'flex',
           justifyContent: 'center', alignItems: 'center', pointerEvents: 'none',
           backgroundColor: 'rgba(100, 100, 102, 0.4)'}}>
