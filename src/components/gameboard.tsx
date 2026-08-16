@@ -1,5 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import Button from '@mui/material/Button';
 import Tttboard from './tttboard'
 import Bot from './bot'
 import {TurnContext} from './turnContext'
@@ -37,6 +40,7 @@ export default function Gameboard({mode}: {mode: 1|2}) {
   const [boardWinners, setBoardWinners] = useState<number[]>([0,0,0,0,0,0,0,0,0])
   const [gameWinner, setGameWinner] = useState<number>(0)
   const [currboard, setCurrboard] = useState<number|undefined>(undefined)
+  const [showResult, setShowResult] = useState(false)
   const makeMove = (board: number, cell: number, val: 1|2) => {
     const newBoardGrid = [...boards[board]]
     newBoardGrid[cell] = val
@@ -49,11 +53,23 @@ export default function Gameboard({mode}: {mode: 1|2}) {
       const newWinners = [...boardWinners]
       newWinners[board] = result
       setBoardWinners(newWinners)
-      setGameWinner(checkGameResult(newWinners))
+      const gameResult = checkGameResult(newWinners)
+      setGameWinner(gameResult)
+      if (gameResult != 0) {
+        setShowResult(true)
+      }
     }
 
     const targetFinished = cell == board ? result != 0 : boardWinners[cell] != 0
     setCurrboard(targetFinished ? undefined : cell)
+  }
+  const handleRestart = () => {
+    setTurn(1)
+    setBoards(Array.from({length: 9}, () => [0,0,0,0,0,0,0,0,0]))
+    setBoardWinners([0,0,0,0,0,0,0,0,0])
+    setGameWinner(0)
+    setCurrboard(undefined)
+    setShowResult(false)
   }
   return (
     <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
@@ -87,6 +103,49 @@ export default function Gameboard({mode}: {mode: 1|2}) {
         </Box>
         {mode == 1 ? <Bot /> : null}
       </TurnContext.Provider>
+      {gameWinner != 0 ? <Box onClick={handleRestart}
+        sx={{display: 'flex', border: '1px solid #6c81e9',
+        borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '30px',
+        '&:hover': {bgcolor: '#6c81e9'},
+        '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+        <Typography variant="h6" sx={{fontWeight: 600,
+          color: '#6c81e9'}}>
+          Restart Game
+        </Typography>
+      </Box>: null}
+      <Dialog open={showResult} onClose={() => setShowResult(false)}
+        slotProps={{paper: {sx: {bgcolor: '#15151b', border: '2px solid #6c81e9',
+          borderRadius: '10px'}}}}>
+        <DialogContent sx={{display: 'flex', flexDirection: 'column',
+          alignItems: 'center', p: '30px'}}>
+          <Typography variant="h4" sx={{fontWeight: 600,
+            color: gameWinner == 1 ? '#2246f9' : gameWinner == 2 ? '#ff0011' : '#6c81e9'}}>
+            {gameWinner == 1 ? 'Player 1 Wins!'
+              : gameWinner == 2 ? (mode == 2 ? 'Player 2 Wins!' : 'Computer Wins!')
+              : 'Draw'}
+          </Typography>
+          <Box onClick={() => setShowResult(false)}
+            sx={{display: 'flex', border: '1px solid #6c81e9',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600,
+              color: '#6c81e9'}}>
+              Admire Board
+            </Typography>
+          </Box>
+          <Box onClick={handleRestart}
+            sx={{display: 'flex', border: '1px solid #6c81e9',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600,
+              color: '#6c81e9'}}>
+              Restart Game
+            </Typography>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   )
 }
