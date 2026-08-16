@@ -14,7 +14,7 @@ export default function Appbar({title}: {title?: string}) {
         boxShadow: 'none', borderBottom: '1px solid #6c81e9', zIndex: 2000}}>
         <Toolbar>
           {/* <DrawerButton /> */}
-          <Box onClick={() => router.push('/')}>
+          <Box onClick={() => router.push('/')} sx={{cursor: 'pointer'}}>
             <Typography variant="h5" sx={{flexGrow: 1, fontWeight: 600,
               color: '#6c81e9'}}>
               {title ? title :

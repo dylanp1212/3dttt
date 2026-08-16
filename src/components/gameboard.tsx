@@ -4,7 +4,7 @@ import Tttboard from './tttboard'
 import {TurnContext} from './turnContext'
 import {useState, useEffect} from 'react'
 
-export default function Gameboard() {
+export default function Gameboard({mode}: {mode: 1|2}) {
   const [turn, setTurn] = useState<1|2>(1)
   const [grid, setGrid] = useState<number[]>([0,0,0,0,0,0,0,0,0])
   const [gameWinner, setGameWinner] = useState<number>(0)
@@ -45,17 +45,17 @@ export default function Gameboard() {
     <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
       <Box sx={{display: 'flex', justifyContent: 'center', mt: '10px'}}>
         <Box sx={{display: 'flex', justifyContent: 'center',
-          mr: '50px', p: '10px', borderRadius: '10px',
-          border: `${turn == 1 ? '3' : '1'}px solid #2246f9`}}>
-          <Typography variant="h5" sx={{fontWeight: 600, color: '#2246f9'}}>
+          mr: '50px', p: '10px', borderRadius: '10px', border: `2px solid #2246f9`,
+          bgcolor: `#${turn == 1 ? '2246f9' : '15151b'}`}}>
+          <Typography variant="h5" sx={{fontWeight: 600, color: `#${turn == 1 ? '15151b' : '2246f9'}`}}>
             Player 1
           </Typography>
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'center',
-          ml: '50px', p: '10px', borderRadius: '10px',
-          border: `${turn == 2 ? '3' : '1'}px solid #ff0011`}}>
-          <Typography variant="h5" sx={{fontWeight: 600, color: '#ff0011'}}>
-            Player 2
+          ml: '50px', p: '10px', borderRadius: '10px', border: `2px solid #ff0011`,
+          bgcolor: `#${turn == 2 ? 'ff0011' : '15151b'}`}}>
+          <Typography variant="h5" sx={{fontWeight: 600, color: `#${turn == 2 ? '15151b' : 'ff0011'}`}}>
+            {mode == 2 ? 'Player 2' : 'Computer'}
           </Typography>
         </Box>
       </Box>

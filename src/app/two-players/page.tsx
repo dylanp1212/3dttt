@@ -9,7 +9,7 @@ export default function Twoplayers() {
     <>
       <Appbar />
       <Box sx={{display: 'flex', justifyContent: 'center'}}>
-        <Gameboard />
+        <Gameboard mode={2}/>
       </Box>
     </>
   )
