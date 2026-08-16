@@ -1,12 +1,13 @@
 import Box from '@mui/material/Box';
 import {useTurn} from './turnContext'
 
-export default function Tttbox({boxok, val, updateGrid, box, board}: {boxok: boolean,
-  val: number, updateGrid: (box: number, val: 1|2) => void, box: number, board: number}) {
-  const {turn, setTurn, currboard} = useTurn()
+export default function Tttbox({board, box}: {board: number, box: number}) {
+  const {turn, setTurn, currboard, boards, boardWinners, gameWinner, makeMove} = useTurn()
+  const val = boards[board][box]
+  const boxok = boardWinners[board] == 0 && gameWinner == 0
   const onClick = () => {
     if (boxok && val == 0 && (board == currboard || currboard == undefined)) {
-      updateGrid(box, turn)
+      makeMove(board, box, turn)
       if (turn == 1) {
         setTurn(2)
       } else {

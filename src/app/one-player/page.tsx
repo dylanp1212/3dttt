@@ -1,7 +1,6 @@
 'use client'
 import Appbar from '../../components/appbar'
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Gameboard from '../../components/gameboard'
 
 export default function Oneplayer() {

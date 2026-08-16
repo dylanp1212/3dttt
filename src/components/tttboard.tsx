@@ -1,38 +1,11 @@
 import Box from '@mui/material/Box';
 import Tttbox from './tttbox'
 import {useTurn} from './turnContext'
-import {useState} from 'react'
 
-const LINES = [
-  [0,1,2], [3,4,5], [6,7,8],
-  [0,3,6], [1,4,7], [2,5,8],
-  [0,4,8], [2,4,6],
-]
-
-function checkResult(grid: number[]): number {
-  for (const [a, b, c] of LINES) {
-    if (grid[a] == grid[b] && grid[b] == grid[c] && grid[a] != 0) {
-      return grid[a]
-    }
-  }
-  return grid.every((cell) => cell != 0) ? 3 : 0
-}
-
-export default function Tttboard({winner, setWinner, board, gameWinner}: {winner: number,
-  setWinner: (board: number, winner: number) => void, board: number, gameWinner: number}) {
-  const {currboard, setCurrboard, grid: metaGrid} = useTurn()
-  const [grid, setGrid] = useState<number[]>([0,0,0,0,0,0,0,0,0])
-  const updateGrid = (cell: number, val: 1|2) => {
-    const newgrid = [...grid]
-    newgrid[cell] = val
-    setGrid(newgrid)
-    const result = checkResult(newgrid)
-    if (result != 0) {
-      setWinner(board, result)
-    }
-    const targetFinished = cell == board ? result != 0 : metaGrid[cell] != 0
-    setCurrboard(targetFinished ? undefined : cell)
-  }
+export default function Tttboard({board}: {board: number}) {
+  const {currboard, boards, boardWinners} = useTurn()
+  const grid = boards[board]
+  const winner = boardWinners[board]
   return (
     <Box sx={{display: 'grid', position: 'relative',
       border: `3px solid ${winner == 1 ? '#2246f9' : winner == 2 ? '#ff0011' : (currboard == board || currboard == undefined) ? '#6c81e9' : '#646466'}`,
@@ -40,11 +13,10 @@ export default function Tttboard({winner, setWinner, board, gameWinner}: {winner
       {grid.map(
         (val, index) => {
           return(
-            <Tttbox boxok={winner == 0 && gameWinner == 0} val={val} updateGrid={updateGrid} box={index} board={board} key={index} />
+            <Tttbox board={board} box={index} key={index} />
           )
         }
       )}
-      {/* 'rgba(100, 100, 102, 0.4)' */}
       {winner == 1 || winner == 2 ? (
         <Box sx={{position: 'absolute', inset: 0, display: 'flex',
           justifyContent: 'center', alignItems: 'center', pointerEvents: 'none',

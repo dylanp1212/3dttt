@@ -4,9 +4,14 @@ export const TurnContext = createContext<{turn: 1|2,
   setTurn: Dispatch<SetStateAction<1|2>>,
   currboard: number|undefined,
   setCurrboard: Dispatch<SetStateAction<number|undefined>>,
-  grid: number[],
-  setGrid: Dispatch<SetStateAction<number[]>>}>({turn: 1, setTurn: () => {},
+  boards: number[][],
+  boardWinners: number[],
+  gameWinner: number,
+  makeMove: (board: number, cell: number, val: 1|2) => void}>({turn: 1, setTurn: () => {},
   currboard: undefined, setCurrboard: () => {},
-  grid: [0,0,0,0,0,0,0,0,0], setGrid: () => {}})
+  boards: Array.from({length: 9}, () => [0,0,0,0,0,0,0,0,0]),
+  boardWinners: [0,0,0,0,0,0,0,0,0],
+  gameWinner: 0,
+  makeMove: () => {}})
 
 export const useTurn = () => useContext(TurnContext)

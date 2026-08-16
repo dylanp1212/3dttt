@@ -2,45 +2,58 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Tttboard from './tttboard'
 import {TurnContext} from './turnContext'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
+
+const LINES = [
+  [0,1,2], [3,4,5], [6,7,8],
+  [0,3,6], [1,4,7], [2,5,8],
+  [0,4,8], [2,4,6],
+]
+
+function checkResult(grid: number[]): number {
+  for (const [a, b, c] of LINES) {
+    if (grid[a] == grid[b] && grid[b] == grid[c] && grid[a] != 0) {
+      return grid[a]
+    }
+  }
+  return grid.every((cell) => cell != 0) ? 3 : 0
+}
+
+function checkGameResult(winners: number[]): number {
+  for (const [a, b, c] of LINES) {
+    if (winners[a] == winners[b] && winners[b] == winners[c] &&
+      (winners[a] == 1 || winners[a] == 2)) {
+      return winners[a]
+    }
+  }
+  return winners.every((w) => w != 0) ? 3 : 0
+}
 
 export default function Gameboard({mode}: {mode: 1|2}) {
   const [turn, setTurn] = useState<1|2>(1)
-  const [grid, setGrid] = useState<number[]>([0,0,0,0,0,0,0,0,0])
+  const [boards, setBoards] = useState<number[][]>(
+    Array.from({length: 9}, () => [0,0,0,0,0,0,0,0,0]))
+  const [boardWinners, setBoardWinners] = useState<number[]>([0,0,0,0,0,0,0,0,0])
   const [gameWinner, setGameWinner] = useState<number>(0)
   const [currboard, setCurrboard] = useState<number|undefined>(undefined)
-  const updateGrid = (board: number, winner: number) => {
-    const newgrid = [...grid]
-    newgrid[board] = winner
-    setGrid(newgrid)
+  const makeMove = (board: number, cell: number, val: 1|2) => {
+    const newBoardGrid = [...boards[board]]
+    newBoardGrid[cell] = val
+    const newBoards = [...boards]
+    newBoards[board] = newBoardGrid
+    setBoards(newBoards)
+
+    const result = checkResult(newBoardGrid)
+    if (result != 0) {
+      const newWinners = [...boardWinners]
+      newWinners[board] = result
+      setBoardWinners(newWinners)
+      setGameWinner(checkGameResult(newWinners))
+    }
+
+    const targetFinished = cell == board ? result != 0 : boardWinners[cell] != 0
+    setCurrboard(targetFinished ? undefined : cell)
   }
-  useEffect(() => {
-    let full = true
-    for (let i = 0; i < 9; i++) {
-      if (grid[i] == 0) {
-        full = false
-      }
-    }
-    if (grid[0] == grid[1] && grid[1] == grid[2] && (grid[0] == 1 || grid[0] == 2)) {
-      setGameWinner(grid[0])
-    } else if (grid[3] == grid[4] && grid[4] == grid[5] && (grid[3] == 1 || grid[3] == 2)) {
-      setGameWinner(grid[3])
-    } else if (grid[6] == grid[7] && grid[7] == grid[8] && (grid[6] == 1 || grid[6] == 2)) {
-      setGameWinner(grid[6])
-    } else if (grid[0] == grid[3] && grid[3] == grid[6] && (grid[0] == 1 || grid[0] == 2)) {
-      setGameWinner(grid[0])
-    } else if (grid[1] == grid[4] && grid[4] == grid[7] && (grid[1] == 1 || grid[1] == 2)) {
-      setGameWinner(grid[1])
-    } else if (grid[2] == grid[5] && grid[5] == grid[8] && (grid[2] == 1 || grid[2] == 2)) {
-      setGameWinner(grid[2])
-    } else if (grid[0] == grid[4] && grid[4] == grid[8] && (grid[0] == 1 || grid[0] == 2)) {
-      setGameWinner(grid[0])
-    } else if (grid[2] == grid[4] && grid[4] == grid[6] && (grid[2] == 1 || grid[2] == 2)) {
-      setGameWinner(grid[2])
-    } else if (full) {
-      setGameWinner(3)
-    }
-  }, [grid])
   return (
     <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
       <Box sx={{display: 'flex', justifyContent: 'center', mt: '10px'}}>
@@ -59,14 +72,14 @@ export default function Gameboard({mode}: {mode: 1|2}) {
           </Typography>
         </Box>
       </Box>
-      <TurnContext.Provider value={{turn, setTurn, currboard, setCurrboard, grid, setGrid}}>
+      <TurnContext.Provider value={{turn, setTurn, currboard, setCurrboard,
+        boards, boardWinners, gameWinner, makeMove}}>
         <Box sx={{mt: '30px', display: 'grid', gridTemplateColumns: 'repeat(3, 158px)',
           border: `3px solid ${gameWinner == 1 ? '#2246f9' : gameWinner == 2 ? '#ff0011' : '#646466'}`}}>
-          {grid.map(
-            (val, index) => {
+          {boardWinners.map(
+            (_, index) => {
               return(
-                <Tttboard winner={val} setWinner={updateGrid} board={index}
-                  gameWinner={gameWinner} key={index} />
+                <Tttboard board={index} key={index} />
               )
             }
           )}
