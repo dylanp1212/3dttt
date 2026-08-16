@@ -44,10 +44,11 @@ export default function Tttboard({winner, setWinner, board, gameWinner}: {winner
           )
         }
       )}
+      {/* 'rgba(100, 100, 102, 0.4)' */}
       {winner == 1 || winner == 2 ? (
         <Box sx={{position: 'absolute', inset: 0, display: 'flex',
           justifyContent: 'center', alignItems: 'center', pointerEvents: 'none',
-          backgroundColor: 'rgba(100, 100, 102, 0.4)'}}>
+          backgroundColor: (winner == 1 ? 'rgba(34, 70, 249, 0.4)' : 'rgba(255, 0, 17, 0.4)')}}>
           {winner == 1 ? (
             <Box sx={{width: '120px', height: '120px', position: 'relative',
               '&::before, &::after': {
@@ -62,7 +63,12 @@ export default function Tttboard({winner, setWinner, board, gameWinner}: {winner
               borderRadius: '50%', border: '12px solid #ff0011'}} />
           )}
         </Box>
-      ) : null}
+      ) : (currboard != board && currboard != undefined) ?
+        <Box sx={{position: 'absolute', inset: 0, display: 'flex',
+          justifyContent: 'center', alignItems: 'center', pointerEvents: 'none',
+          backgroundColor: 'rgba(100, 100, 102, 0.4)'}}>
+        </Box> : null
+      }
     </Box>
   )
 }
