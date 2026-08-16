@@ -41,6 +41,12 @@ export default function Gameboard({mode}: {mode: 1|2}) {
   const [gameWinner, setGameWinner] = useState<number>(0)
   const [currboard, setCurrboard] = useState<number|undefined>(undefined)
   const [showResult, setShowResult] = useState(false)
+  const [showbotdiff, setShowbotdiff] = useState<boolean>(mode == 1)
+  const [botdiff, setBotdiff] = useState<number>(0)
+  const diffselect = (diff) => {
+    setShowbotdiff(false)
+    setBotdiff(diff)
+  }
   const makeMove = (board: number, cell: number, val: 1|2) => {
     const newBoardGrid = [...boards[board]]
     newBoardGrid[cell] = val
@@ -90,7 +96,7 @@ export default function Gameboard({mode}: {mode: 1|2}) {
         </Box>
       </Box>
       <TurnContext.Provider value={{turn, setTurn, currboard, setCurrboard,
-        boards, boardWinners, gameWinner, makeMove}}>
+        boards, boardWinners, gameWinner, botdiff, makeMove}}>
         <Box sx={{mt: '30px', display: 'grid', gridTemplateColumns: 'repeat(3, 158px)',
           border: `3px solid ${gameWinner == 1 ? '#2246f9' : gameWinner == 2 ? '#ff0011' : '#646466'}`}}>
           {boardWinners.map(
@@ -142,6 +148,46 @@ export default function Gameboard({mode}: {mode: 1|2}) {
             <Typography variant="h6" sx={{fontWeight: 600,
               color: '#6c81e9'}}>
               Restart Game
+            </Typography>
+          </Box>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={showbotdiff} onClose={() => setShowbotdiff(false)}
+        slotProps={{paper: {sx: {bgcolor: '#15151b', border: '2px solid #6c81e9',
+          borderRadius: '10px'}}}}>
+        <DialogContent sx={{display: 'flex', flexDirection: 'column',
+          alignItems: 'center', p: '30px', width: '250px'}}>
+          <Typography variant="h4" sx={{fontWeight: 600, color: '#6c81e9'}}>
+            Difficulty
+          </Typography>
+          <Box onClick={() => diffselect(0)}
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '150px',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            justifyContent: 'center',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
+              Easy
+            </Typography>
+          </Box>
+          <Box onClick={() => diffselect(1)}
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '150px',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            justifyContent: 'center',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
+              Medium
+            </Typography>
+          </Box>
+          <Box onClick={() => diffselect(2)}
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '150px',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            justifyContent: 'center',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
+              Hard
             </Typography>
           </Box>
         </DialogContent>

@@ -7,11 +7,13 @@ export const TurnContext = createContext<{turn: 1|2,
   boards: number[][],
   boardWinners: number[],
   gameWinner: number,
+  botdiff: number,
   makeMove: (board: number, cell: number, val: 1|2) => void}>({turn: 1, setTurn: () => {},
   currboard: undefined, setCurrboard: () => {},
   boards: Array.from({length: 9}, () => [0,0,0,0,0,0,0,0,0]),
   boardWinners: [0,0,0,0,0,0,0,0,0],
   gameWinner: 0,
+  botdiff: 0,
   makeMove: () => {}})
 
 export const useTurn = () => useContext(TurnContext)
