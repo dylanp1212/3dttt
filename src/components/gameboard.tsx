@@ -14,6 +14,7 @@ const LINES = [
   [0,4,8], [2,4,6],
 ]
 
+// same 2 functions? replace with 1?
 function checkResult(grid: number[]): number {
   for (const [a, b, c] of LINES) {
     if (grid[a] == grid[b] && grid[b] == grid[c] && grid[a] != 0) {
