@@ -20,13 +20,13 @@ export default function Bot() {
   }
 
   // minimax
-  const LINES = [
+  const lines = [
     [0,1,2], [3,4,5], [6,7,8],
     [0,3,6], [1,4,7], [2,5,8],
     [0,4,8], [2,4,6],
   ]
   function checkResult(grid: number[]): number {
-    for (const [a, b, c] of LINES) {
+    for (const [a, b, c] of lines) {
       if (grid[a] == grid[b] && grid[b] == grid[c] && grid[a] != 0) {
         return grid[a]
       }
@@ -41,7 +41,11 @@ export default function Bot() {
         avail.push(i)
       }
     }
-    return (avail)
+    let shuffled = avail
+      .map(val => ({val, sort: Math.random()}))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({val}) => val)
+    return (shuffled)
   }
   const getnewstate = (board, move, player) => {
     const newboard = [...board]

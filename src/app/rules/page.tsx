@@ -13,6 +13,12 @@ export default function Rules() {
             Rules
           </Typography>
         </Box>
+        <Box sx={{display: 'flex', justifyContent: 'center', mt: '30px'}}>
+          <Typography variant="h5" sx={{flexGrow: 1, fontWeight: 600,
+            color: '#6c81e9'}}>
+            damn bruh have some patience
+          </Typography>
+        </Box>
       </Box>
     </>
   )
