@@ -225,7 +225,7 @@ export default function Bot() {
     makeMove(choicefull.board, choicefull.box, 2)
   }
   const extreme = () => {
-    minimaxfull(0, boards, -Infinity, Infinity, boardWinners, currboard, 9)
+    minimaxfull(0, boards, -Infinity, Infinity, boardWinners, currboard, 10)
     makeMove(choicefull.board, choicefull.box, 2)
   }
 
