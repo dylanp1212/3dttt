@@ -62,7 +62,7 @@ export default function Bot() {
       return 0
     }
   }
-  const minimax = (depth, board) => {
+  const minimax = (depth, board, alpha, beta) => {
     if (checkResult(board) != 0) {
       return score(depth, board)
     }
@@ -73,8 +73,17 @@ export default function Bot() {
     const avail = getavailablemoves(board)
     for (let i = 0; i < avail.length; i++) {
       const possible = getnewstate(board, avail[i], player)
-      scores.push(minimax(depth, possible))
+      const s = minimax(depth, possible, alpha, beta)
+      scores.push(s)
       moves.push(avail[i])
+      if (player == 2) {
+        alpha = Math.max(alpha, s)
+      } else {
+        beta = Math.min(beta, s)
+      }
+      if (alpha >= beta) {
+        break
+      }
     }
     if (player == 2) {
       const maxindex = scores.indexOf(Math.max(...scores))
@@ -94,7 +103,7 @@ export default function Bot() {
         targetboard = Math.floor(Math.random() * 9)
       }
     }
-    minimax(0, boards[targetboard])
+    minimax(0, boards[targetboard], -Infinity, Infinity)
     makeMove(targetboard, choice, 2)
   }
   useEffect(() => {
