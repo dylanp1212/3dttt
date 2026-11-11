@@ -1,3 +1,4 @@
+"use client"
 import Appbar from '../../components/appbar'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,7 +14,7 @@ export default function Rules() {
             Rules
           </Typography>
         </Box>
-        <Box sx={{display: 'flex', justifyContent: 'center', mt: '30px', flexDirection: 'column', px: '100px'}}>
+        <Box sx={{display: 'flex', justifyContent: 'center', mt: '30px', flexDirection: 'column', px: '10px', '@media (min-width: 769px)': {px: '100px'}}}>
           <Typography variant="h5" sx={{flexGrow: 1,
             color: '#6c81e9', mb: '50px'}}>
             3D Tic Tac Toe is just like regular Tic Tac Toe, except every box is its own game of Tic Tac Toe.

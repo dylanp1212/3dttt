@@ -12,7 +12,7 @@ export default function Home() {
       <Appbar />
       <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', justifyContent: 'center'}}>
-          <Typography variant="h1" sx={{flexGrow: 1, fontWeight: 600,
+          <Typography variant="h1" align='center' sx={{flexGrow: 1, fontWeight: 600,
             color: '#6c81e9'}}>
               3D <span style={{color: '#ff0011'}}>Tic </span>
               <span style={{color: '#2246f9'}}>Tac</span> Toe

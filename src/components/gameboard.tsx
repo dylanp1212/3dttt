@@ -100,7 +100,8 @@ export default function Gameboard({mode}: {mode: 1|2}) {
       </Box>
       <TurnContext.Provider value={{turn, setTurn, currboard, setCurrboard,
         boards, boardWinners, gameWinner, botdiff, makeMove}}>
-        <Box sx={{mt: '30px', display: 'grid', gridTemplateColumns: 'repeat(3, 158px)',
+        <Box sx={{mt: '30px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          width: 'min(480px, 100vw - 20px)', boxSizing: 'border-box',
           border: `3px solid ${gameWinner == 1 ? '#2246f9' : gameWinner == 2 ? '#ff0011' : '#646466'}`}}>
           {boardWinners.map(
             (_, index) => {
