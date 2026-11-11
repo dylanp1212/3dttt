@@ -42,8 +42,8 @@ export default function Bot() {
     }
     return winners.every((w) => w != 0) ? 3 : 0
   }
-  const turnatdepth = (depth) => depth % 2 == 0 ? 2 : 1
-  const getavailablemoves = (board) => {
+  const turnatdepth = (depth: number) => depth % 2 == 0 ? 2 : 1
+  const getavailablemoves = (board: number[]) => {
     const avail = []
     for (let i = 0; i < 9; i++) {
       if (board[i] == 0) {
@@ -56,13 +56,13 @@ export default function Bot() {
       .map(({val}) => val)
     return (shuffled)
   }
-  const getnewstate = (board, move, player) => {
+  const getnewstate = (board: number[], move: number, player: number) => {
     const newboard = [...board]
     newboard[move] = player
     return (newboard)
   }
   let choice = 0
-  const score = (depth, board) => {
+  const score = (depth: number, board: number[]) => {
     if (checkResult(board) == 2) {
       return (10 - depth)
     } else if (checkResult(board) == 1) {
@@ -71,7 +71,7 @@ export default function Bot() {
       return 0
     }
   }
-  const minimax = (depth, board, alpha, beta) => {
+  const minimax = (depth: number, board: number[], alpha: number, beta: number): number => {
     if (checkResult(board) != 0) {
       return score(depth, board)
     }
@@ -117,7 +117,7 @@ export default function Bot() {
   }
 
   // full board minimax
-  const getavailablemovesfull = (tboards, tcurrboard, tboardWinners) => {
+  const getavailablemovesfull = (tboards: number[][], tcurrboard: number|undefined, tboardWinners: number[]) => {
     const avail = []
     for (let b = 0; b < 9; b++) {
       const bavail = []
@@ -136,7 +136,7 @@ export default function Bot() {
     }
     return (avail)
   }
-  const getnewstatefull = (tboards, moveboard, movebox, player, tboardWinners) => {
+  const getnewstatefull = (tboards: number[][], moveboard: number, movebox: number, player: number, tboardWinners: number[]) => {
     const newboards = [...tboards]
     newboards[moveboard] = [...tboards[moveboard]]
     newboards[moveboard][movebox] = player
@@ -145,7 +145,7 @@ export default function Bot() {
     const newcurrboard = newboardWinners[movebox] != 0 ? undefined : movebox
     return ({newboards, newcurrboard, newboardWinners})
   }
-  const scorefull = (depth, tboards, tboardWinners) => {
+  const scorefull = (depth: number, tboards: number[][], tboardWinners: number[]) => {
     const gameres = checkGameResult(tboardWinners)
     if (gameres == 2) {
       return (1000 - depth)
@@ -178,7 +178,7 @@ export default function Bot() {
     }
   }
   let choicefull = {board: 0, box: 0}
-  const minimaxfull = (depth, tboards, alpha, beta, tboardWinners, tcurrboard, depthlimit) => {
+  const minimaxfull = (depth: number, tboards: number[][], alpha: number, beta: number, tboardWinners: number[], tcurrboard: number|undefined, depthlimit: number): number => {
     if (checkGameResult(tboardWinners) != 0 || depth > depthlimit) {
       return scorefull(depth, tboards, tboardWinners)
     }

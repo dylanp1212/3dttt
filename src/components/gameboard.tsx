@@ -43,7 +43,7 @@ export default function Gameboard({mode}: {mode: 1|2}) {
   const [showResult, setShowResult] = useState(false)
   const [showbotdiff, setShowbotdiff] = useState<boolean>(mode == 1)
   const [botdiff, setBotdiff] = useState<number>(0)
-  const diffselect = (diff) => {
+  const diffselect = (diff: number) => {
     setShowbotdiff(false)
     setBotdiff(diff)
   }

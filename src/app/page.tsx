@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Appbar />
       <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-        <Box sx={{display: 'flex', justifyContent: 'center', display: 'none', '@media (min-width: 769px)': {display: 'block'}}}>
+        <Box sx={{display: 'none', justifyContent: 'center', '@media (min-width: 769px)': {display: 'flex'}}}>
           <Typography variant="h1" align='center' sx={{flexGrow: 1, fontWeight: 600,
             color: '#6c81e9'}}>
               3D <span style={{color: '#ff0011'}}>Tic </span>
