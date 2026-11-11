@@ -161,33 +161,58 @@ export default function Gameboard({mode}: {mode: 1|2}) {
             Difficulty
           </Typography>
           <Box onClick={() => diffselect(0)}
-            sx={{display: 'flex', border: '1px solid #6c81e9', width: '150px',
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '175px',
             borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
             justifyContent: 'center',
             '&:hover': {bgcolor: '#6c81e9'},
             '&:hover .MuiTypography-root': {color: '#15151b'}}}>
             <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
-              Easy
+              Dying Ant
             </Typography>
           </Box>
           <Box onClick={() => diffselect(1)}
-            sx={{display: 'flex', border: '1px solid #6c81e9', width: '150px',
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '175px',
             borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
             justifyContent: 'center',
             '&:hover': {bgcolor: '#6c81e9'},
             '&:hover .MuiTypography-root': {color: '#15151b'}}}>
             <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
-              Medium
+              Coughing Baby
             </Typography>
           </Box>
           <Box onClick={() => diffselect(2)}
-            sx={{display: 'flex', border: '1px solid #6c81e9', width: '150px',
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '175px',
             borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
             justifyContent: 'center',
             '&:hover': {bgcolor: '#6c81e9'},
             '&:hover .MuiTypography-root': {color: '#15151b'}}}>
             <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
-              Hard
+              Try Hard
+            </Typography>
+          </Box>
+          <Box onClick={() => diffselect(3)}
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '175px',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            justifyContent: 'center',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
+              Hydrogen Bomb
+            </Typography>
+          </Box>
+          <Box onClick={() => diffselect(4)}
+            sx={{display: 'flex', border: '1px solid #6c81e9', width: '175px',
+            borderRadius: '10px', p: '10px', cursor: 'pointer', mt: '20px',
+            justifyContent: 'center',
+            '&:hover': {bgcolor: '#6c81e9'},
+            '&:hover .MuiTypography-root': {color: '#15151b'}}}>
+            <Typography variant="h6" sx={{fontWeight: 600, color: '#6c81e9'}}>
+              Super Nova *
+            </Typography>
+          </Box>
+          <Box sx={{mt: '10px'}}>
+            <Typography variant="caption" sx={{fontWeight: 600, color: '#6c81e9'}}>
+              * Can be slow
             </Typography>
           </Box>
         </DialogContent>

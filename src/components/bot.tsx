@@ -177,9 +177,8 @@ export default function Bot() {
       return (total)
     }
   }
-  const depthlimit = 5
   let choicefull = {board: 0, box: 0}
-  const minimaxfull = (depth, tboards, alpha, beta, tboardWinners, tcurrboard) => {
+  const minimaxfull = (depth, tboards, alpha, beta, tboardWinners, tcurrboard, depthlimit) => {
     if (checkGameResult(tboardWinners) != 0 || depth > depthlimit) {
       return scorefull(depth, tboards, tboardWinners)
     }
@@ -191,7 +190,7 @@ export default function Bot() {
     for (let b = 0; b < 9; b++) {
       for (let i = 0; i < avail[b].length; i++) {
         const possible = getnewstatefull(tboards, b, avail[b][i], player, tboardWinners)
-        const s = minimaxfull(depth, possible.newboards, alpha, beta, possible.newboardWinners, possible.newcurrboard)
+        const s = minimaxfull(depth, possible.newboards, alpha, beta, possible.newboardWinners, possible.newcurrboard, depthlimit)
         scores.push(s)
         moves.push({board: b, box: avail[b][i]})
         if (player == 2) {
@@ -218,7 +217,15 @@ export default function Bot() {
     }
   }
   const hard = () => {
-    minimaxfull(0, boards, -Infinity, Infinity, boardWinners, currboard)
+    minimaxfull(0, boards, -Infinity, Infinity, boardWinners, currboard, 4)
+    makeMove(choicefull.board, choicefull.box, 2)
+  }
+  const reallyhard = () => {
+    minimaxfull(0, boards, -Infinity, Infinity, boardWinners, currboard, 7)
+    makeMove(choicefull.board, choicefull.box, 2)
+  }
+  const extreme = () => {
+    minimaxfull(0, boards, -Infinity, Infinity, boardWinners, currboard, 9)
     makeMove(choicefull.board, choicefull.box, 2)
   }
 
@@ -228,8 +235,12 @@ export default function Bot() {
         easy()
       } else if (botdiff == 1) {
         medium()
-      } else {
+      } else if (botdiff == 2) {
         hard()
+      } else if (botdiff == 3) {
+        reallyhard()
+      } else {
+        extreme()
       }
       setTurn(1)
     }
