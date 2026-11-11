@@ -76,6 +76,9 @@ export default function Gameboard({mode}: {mode: 1|2}) {
     setGameWinner(0)
     setCurrboard(undefined)
     setShowResult(false)
+    if (mode == 1) {
+      setShowbotdiff(true)
+    }
   }
   return (
     <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
@@ -152,7 +155,7 @@ export default function Gameboard({mode}: {mode: 1|2}) {
           </Box>
         </DialogContent>
       </Dialog>
-      <Dialog open={showbotdiff} onClose={() => setShowbotdiff(false)}
+      <Dialog open={showbotdiff}
         slotProps={{paper: {sx: {bgcolor: '#15151b', border: '2px solid #6c81e9',
           borderRadius: '10px'}}}}>
         <DialogContent sx={{display: 'flex', flexDirection: 'column',
