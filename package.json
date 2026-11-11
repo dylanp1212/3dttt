@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "containerised": "npm run build && docker compose up --build",
+    "package": "npm run build && docker build . -t 3dttt-linux-amd64 --platform linux/amd64 && docker save -o 3dttt-linux-amd64.tar 3dttt-linux-amd64"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

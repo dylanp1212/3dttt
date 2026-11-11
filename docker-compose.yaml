@@ -1,0 +1,6 @@
+services:
+  app:
+    container_name: 3dttt-app
+    build: .
+    ports:
+      - "3003:3003"

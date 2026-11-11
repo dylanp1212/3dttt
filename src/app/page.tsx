@@ -21,7 +21,7 @@ export default function Home() {
         <Box sx={{display: 'flex', justifyContent: 'center',
           width: '300px', height: '300px', border: '2px solid #6c81e9',
           borderRadius: '10px', overflow: 'hidden',  mt: '50px', '@media (min-width: 769px)': {mt: '0px'}}}>
-          <img src="/hashbang.png" alt="3D Tic Tac Toe Logo"
+          <img src={`${process.env.BASE_PATH}/hashbang.png`} alt="3D Tic Tac Toe Logo"
             style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'center',

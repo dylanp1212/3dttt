@@ -15,7 +15,7 @@ export default function Appbar({title}: {title?: string}) {
         <Toolbar>
           <Box sx={{display: 'flex', justifyContent: 'center',
             width: '30px', height: '30px', overflow: 'hidden', mr: '10px'}}>
-            <img src="/hashbang.png" alt="3D Tic Tac Toe Logo"
+            <img src={`${process.env.BASE_PATH}/hashbang.png`} alt="3D Tic Tac Toe Logo"
               style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
           </Box>
           <Box onClick={() => router.push('/')} sx={{cursor: 'pointer'}}>
