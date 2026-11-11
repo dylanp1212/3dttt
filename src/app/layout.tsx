@@ -3,7 +3,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "3dttt",
+  title: "3D Tic Tac Toe",
   description: "3dttt",
 };
 
