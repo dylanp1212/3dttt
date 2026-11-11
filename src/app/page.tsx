@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Appbar />
       <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-        <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <Box sx={{display: 'flex', justifyContent: 'center', display: 'none', '@media (min-width: 769px)': {display: 'block'}}}>
           <Typography variant="h1" align='center' sx={{flexGrow: 1, fontWeight: 600,
             color: '#6c81e9'}}>
               3D <span style={{color: '#ff0011'}}>Tic </span>
@@ -20,7 +20,9 @@ export default function Home() {
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'center',
           width: '300px', height: '300px', border: '2px solid #6c81e9',
-          borderRadius: '10px'}}>
+          borderRadius: '10px', overflow: 'hidden',  mt: '50px', '@media (min-width: 769px)': {mt: '0px'}}}>
+          <img src="/hashbang.png" alt="3D Tic Tac Toe Logo"
+            style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'center',
           border: '2px solid #2246f9', borderRadius: '10px',

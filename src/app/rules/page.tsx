@@ -35,6 +35,10 @@ export default function Rules() {
             color: '#6c81e9', mb: '50px'}}>
             If all boards are complete and neither player has 3 in a row, its a draw.
           </Typography>
+          <Typography variant="body1" sx={{flexGrow: 1,
+            color: '#6c81e9', mb: '50px'}}>
+            Thank you to my little brother for making the awesome logo!
+          </Typography>
         </Box>
       </Box>
     </>

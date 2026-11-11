@@ -13,7 +13,11 @@ export default function Appbar({title}: {title?: string}) {
       <AppBar position="fixed" color="transparent" sx={{bgcolor: '#15151b',
         boxShadow: 'none', borderBottom: '1px solid #6c81e9', zIndex: 2000}}>
         <Toolbar>
-          {/* <DrawerButton /> */}
+          <Box sx={{display: 'flex', justifyContent: 'center',
+            width: '30px', height: '30px', overflow: 'hidden', mr: '10px'}}>
+            <img src="/hashbang.png" alt="3D Tic Tac Toe Logo"
+              style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
+          </Box>
           <Box onClick={() => router.push('/')} sx={{cursor: 'pointer'}}>
             <Typography variant="h5" sx={{flexGrow: 1, fontWeight: 600,
               color: '#6c81e9'}}>
